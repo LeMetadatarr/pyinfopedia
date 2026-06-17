@@ -7,6 +7,7 @@ the European-Portuguese dictionary by Porto Editora.
 - [Transport](transport.md) — HTTP and Cloudflare-bypass modes.
 - [Parsing](parsing.md) — how a word page maps to the `Entry` model.
 - [Datasets](datasets.md) — exporting word lists to JSONL and CSV.
+- [Crawling](crawling.md) — resumable breadth-first crawl of the whole dictionary.
 
 ## Concepts
 
