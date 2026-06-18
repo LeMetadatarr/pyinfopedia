@@ -56,43 +56,40 @@ def _parse_audio_url(soup: BeautifulSoup) -> Optional[str]:
 
 def _parse_senses(catgram_aceps: Tag) -> List[Sense]:
     senses: List[Sense] = []
-    for i, row in enumerate(catgram_aceps.select("div.dolAcepsRow")):
+    for ridx, row in enumerate(catgram_aceps.select("div.dolAcepsRow")):
         # Single-definition entries (e.g. "dobro" numeral, "adorno") carry no
         # acepção number — fall back to the row's ordinal so the definition is
         # still captured instead of dropped.
         num_el = row.select_one("div.dolAcepsNum span")
         try:
-            number = int(num_el.get_text(strip=True).rstrip(".")) if num_el else i + 1
+            number = int(num_el.get_text(strip=True).rstrip(".")) if num_el else ridx + 1
         except (ValueError, TypeError):
-            number = i + 1
+            number = ridx + 1
 
         right_cell = row.select_one("div.dolAcepsRightCell")
         if right_cell is None:
             continue
 
-        subaceps = right_cell.select("span.dolAcepsSubacep")
         definitions: List[str] = []
         synonyms: List[str] = []
-        for i, sub in enumerate(subaceps):
-            trads = sub.select("span.dolSubacepTraduz span.dolTraduzTrad")
+        for sidx, sub in enumerate(right_cell.select("span.dolAcepsSubacep")):
             texts = []
-            for trad in trads:
-                text = _clean_text(trad.get_text(separator=" ", strip=True))
-                text = text.strip(",/ ")
+            for trad in sub.select("span.dolSubacepTraduz span.dolTraduzTrad"):
+                text = _clean_text(trad.get_text(separator=" ", strip=True)).strip(",/ ")
                 if text:
                     texts.append(text)
-            if i == 0:
-                definitions.extend(texts)
-            else:
-                synonyms.extend(texts)
+            (definitions if sidx == 0 else synonyms).extend(texts)
+
+        # Cross-reference-only senses (e.g. "emperro" → "ver emperramento") carry a
+        # remissão link instead of a gloss — capture it so the sense isn't empty.
+        if not definitions:
+            for rem in right_cell.select("span.dolSubacepLremissoes a"):
+                target = _clean_text(rem.get_text(strip=True))
+                if target:
+                    definitions.append("ver " + target)
 
         definition = " | ".join(definitions) if definitions else None
-        sense = Sense(
-            number=number,
-            definition=definition or "",
-            synonyms=synonyms,
-        )
-        senses.append(sense)
+        senses.append(Sense(number=number, definition=definition or "", synonyms=synonyms))
     return senses
 
 
