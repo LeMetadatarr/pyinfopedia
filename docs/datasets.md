@@ -30,7 +30,7 @@ export_csv(words, "out/infopedia.csv", transport=transport)
 ```
 
 `export_csv(words, path, *, transport=None, dedup=True) -> int`. Columns:
-`word, ipa, pos, syllabification, etymology, definition`.
+`word, ipa, pos, syllabification, etymology, definition, audio_url`.
 
 A heterophone yields one row per pronunciation — e.g. `colher` gives `kuˈʎɛɾ`
 (noun) and `kuˈʎeɾ` (verb).

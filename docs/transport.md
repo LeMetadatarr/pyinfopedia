@@ -30,6 +30,7 @@ Transport(
     mode: str | None = None,
     flaresolverr_url: str | None = None,
     flaresolverr_timeout_ms: int | None = None,
+    wayback_fallback: bool | None = None,
 )
 ```
 
