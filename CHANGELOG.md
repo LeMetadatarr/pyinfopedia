@@ -1,12 +1,20 @@
 # Changelog
 
-## [0.0.1a2](https://github.com/TigreGotico/pyinfopedia/tree/0.0.1a2) (2026-06-18)
+## [0.0.1a3](https://github.com/LeMetadatarr/pyinfopedia/tree/0.0.1a3) (2026-08-02)
 
-[Full Changelog](https://github.com/TigreGotico/pyinfopedia/compare/af8e02dab2fdb12d9de55a1ba28fb3d232c63337...0.0.1a2)
+[Full Changelog](https://github.com/LeMetadatarr/pyinfopedia/compare/0.0.1a2...0.0.1a3)
 
 **Merged pull requests:**
 
-- Configure Renovate [\#1](https://github.com/TigreGotico/pyinfopedia/pull/1) ([renovate[bot]](https://github.com/apps/renovate))
+- docs: QA pass — accuracy, org-move URLs, related projects [\#4](https://github.com/LeMetadatarr/pyinfopedia/pull/4) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.0.1a2](https://github.com/LeMetadatarr/pyinfopedia/tree/0.0.1a2) (2026-06-18)
+
+[Full Changelog](https://github.com/LeMetadatarr/pyinfopedia/compare/af8e02dab2fdb12d9de55a1ba28fb3d232c63337...0.0.1a2)
+
+**Merged pull requests:**
+
+- Configure Renovate [\#1](https://github.com/LeMetadatarr/pyinfopedia/pull/1) ([renovate[bot]](https://github.com/apps/renovate))
 
 
 
