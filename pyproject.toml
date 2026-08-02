@@ -26,8 +26,8 @@ stealth = ["curl-cffi"]
 test = ["pytest"]
 
 [project.urls]
-Homepage = "https://github.com/TigreGotico/pyinfopedia"
-Repository = "https://github.com/TigreGotico/pyinfopedia"
+Homepage = "https://github.com/LeMetadatarr/pyinfopedia"
+Repository = "https://github.com/LeMetadatarr/pyinfopedia"
 
 [tool.pytest.ini_options]
 markers = ["live: hits the live Infopédia API (network required)"]

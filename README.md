@@ -13,7 +13,7 @@ pip install pyinfopedia            # or: uv pip install pyinfopedia
 pip install pyinfopedia[stealth]   # + curl_cffi for Cloudflare bypass
 ```
 
-Depends on [`unblock_requests`](https://github.com/TigreGotico/unblock_requests) for transport.
+Depends on [`unblock_requests`](https://github.com/LeMetadatarr/unblock_requests) for transport.
 
 ## Quick start
 
@@ -84,3 +84,9 @@ PYINFOPEDIA_FLARESOLVERR=http://host:8191 pytest -m live    # hit the live site
 
 Apache-2.0 · `JarbasAi <jarbasai@mailfence.com>`. Data belongs to Porto Editora /
 Infopédia; this is an unofficial client — respect their terms and rate limits.
+
+## Related projects
+
+- [`unblock_requests`](https://github.com/LeMetadatarr/unblock_requests) — the Cloudflare-bypass transport this client is built on.
+- [`pyportaldalingua`](https://github.com/LeMetadatarr/pyportaldalingua) — client for another Portuguese-language dictionary.
+- [`pywiktionary`](https://github.com/LeMetadatarr/pywiktionary) — Wiktionary client.
