@@ -23,8 +23,6 @@ from urllib.parse import unquote
 
 from bs4 import BeautifulSoup
 
-from sitemapper import crawl
-
 from pyinfopedia.client import get_word, _clean_text
 from pyinfopedia.models import Entry
 from pyinfopedia.transport import default_transport
@@ -115,8 +113,18 @@ def _extract_word_urls_from_html(html: str) -> Set[str]:
 
 
 def _extract_words_from_sitemap(word: str, max_pages: int = 15) -> Set[str]:
-    """Use sitemapper to crawl a word page and discover more word URLs."""
+    """Use sitemapper to crawl a word page and discover more word URLs.
+
+    ``sitemapper`` is an optional, org-internal crawling tool — it is not a
+    hard dependency of this package (the public PyPI package of the same name
+    is an unrelated sitemap-XML generator). If it is not importable, link
+    discovery falls back to :func:`_extract_word_urls_from_html` alone.
+    """
     words: Set[str] = set()
+    try:
+        from sitemapper import crawl
+    except ImportError:
+        return words
     url = f"{BASE_URL}{DICT_PATH}/{urllib.parse.quote(word, safe='')}"
     try:
         graph = crawl(url, max_pages=max_pages)
@@ -268,6 +276,7 @@ def bfs_build_corpus(
                 raw = _fetch_raw(word, tport)
             except Exception as exc:
                 logger.warning("Fetch err %s: %s", word, exc)
+                n_errors += 1
                 time.sleep(delay)
                 continue
 
