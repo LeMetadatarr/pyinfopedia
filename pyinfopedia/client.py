@@ -125,7 +125,7 @@ def _parse_expressions(soup: BeautifulSoup) -> List[Expression]:
 
         # Find the definition in the following dolTable
         definition = ""
-        table = exeger.find_next_sibling("div.dolTable")
+        table = exeger.find_next_sibling("div", class_="dolTable")
         if table:
             def_el = table.select_one(
                 "span.dolSubacepTraduz span.dolTraduzTrad"
@@ -218,7 +218,7 @@ def word_exists(word: str, *, transport: Optional[Transport] = None) -> bool:
     """Check if *word* has an entry in the dictionary."""
     url = _word_url(word)
     html = _t(transport).get_text(url)
-    return ' class="dolEntradaVverbete"' in html or 'class="dolEntradaVverbete"' in html
+    return 'class="dolEntradaVverbete"' in html
 
 
 def _parse_entry_page(html: str, word: str) -> Optional[Entry]:
@@ -325,6 +325,11 @@ def search(prefix: str, *, transport: Optional[Transport] = None) -> List[Search
     results: List[SearchResult] = []
     seen: set = set()
     for a in soup.select("a[href^='/dicionarios/lingua-portuguesa/']"):
+        # Skip the "Palavra em destaque" (word-of-the-day) widget: it nests a
+        # caption paragraph ahead of the word, which get_text(strip=True)
+        # would otherwise glue onto it (e.g. "Palavra em destaquefleuma").
+        if a.select_one("p.title"):
+            continue
         href: str = a["href"]
         # Only keep leaf word URLs
         path = href.removeprefix("/dicionarios/lingua-portuguesa/")

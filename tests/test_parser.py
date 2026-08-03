@@ -70,3 +70,26 @@ def test_every_parsed_sense_has_text():
         for cat in _entry(word).categories:
             for s in cat.senses:
                 assert s.number >= 1
+
+
+def test_expressions_have_definitions():
+    """casa's set-phrase list (idioms) must carry their gloss.
+
+    Regression: ``_parse_expressions`` looked up the definition table with
+    ``find_next_sibling("div.dolTable")``, which bs4 treats as a literal tag
+    *name* rather than a CSS selector — it never matched, so every expression
+    was recorded with an empty ``definition``."""
+    entry = _entry("casa")
+    assert len(entry.expressions) > 30
+    empty = [e for e in entry.expressions if not e.definition]
+    assert not empty, f"{len(empty)} expressions parsed with no definition"
+    caramela = next(e for e in entry.expressions if e.expression == "casa caramela")
+    assert "edifício" in caramela.definition
+    assert caramela.domain == "ARQUITETURA"
+
+
+def test_casa_relations_and_audio():
+    entry = _entry("casa")
+    assert "divisão" in entry.relations.get("sinonimos", [])
+    assert entry.audio_url and entry.audio_url.startswith("https://")
+    assert len(entry.inflected_forms) > 0
