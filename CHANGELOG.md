@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.1a4](https://github.com/LeMetadatarr/pyinfopedia/tree/0.0.1a4) (2026-08-03)
+
+[Full Changelog](https://github.com/LeMetadatarr/pyinfopedia/compare/0.0.1a3...0.0.1a4)
+
+**Merged pull requests:**
+
+- ci: grant conventional-label workflow write permissions [\#5](https://github.com/LeMetadatarr/pyinfopedia/pull/5) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.1a3](https://github.com/LeMetadatarr/pyinfopedia/tree/0.0.1a3) (2026-08-02)
 
 [Full Changelog](https://github.com/LeMetadatarr/pyinfopedia/compare/0.0.1a2...0.0.1a3)
